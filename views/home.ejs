@@ -1,0 +1,85 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+  </head>
+  <body>
+    
+      <%- include("partials/header.ejs") %>
+        <section class="vh-100" style="background-color: #e2d5de;">
+      <div class="container py-5 h-100">
+
+        <form action="/logout" method="POST">
+  <div class="d-flex justify-content-end mb-3 ">
+        <button type="submit" class="btn btn-primary " name="cikis">Çıkış</button>
+        </div>
+</form>
+        
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          
+          <div class="col col-xl-4">
+
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+
+                <h6 class="mb-3 ">Alışveriş Eksik Listesi</h6>
+
+                <form action="/add" method="post" class="d-flex justify-content-center align-items-center mb-4">
+                  <div data-mdb-input-init class="form-outline flex-fill">
+                    <input type="text" name="item" id="form3" class="form-control form-control-lg" />
+                  </div>
+                  
+                  
+                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg ms-2">Ekle</button>
+              </div>
+              </form> 
+
+                <ul class="list-group mb-0">
+                  <% if(items) {%>
+                  <% items.forEach(function(item,index) {%>
+                
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                    <div class="d-flex align-items-center">
+                      <input class="form-check-input me-2" type="checkbox" onchange="toggleStrike(this)" />
+                      <span style="font-size: 15px;" class="item-text"><%= item %></span>
+                    </div>
+                    <a href="/delete/<%= index %>" data-mdb-tooltip-init title="Sil">
+                      <i class="fas fa-times text-primary"></i>
+                    </a>
+                  </li>
+                  
+                    
+    <% }) %>
+      <% } %>
+                    
+                </ul>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+        <%- include("partials/footer.ejs") %>
+    </section>
+
+
+        
+
+    <script>
+      function toggleStrike(checkbox){
+        const text=checkbox.nextElementSibling;
+
+        if(checkbox.checked){
+          text.classList.add("strike");
+        }
+        else{
+          text.classList.remove("strike");
+        }
+      }
+    </script>
+    </body>
+    </html>
